@@ -25,7 +25,7 @@ class postgresplus::replication (
             Service["${postgresplus::ppa_service}"],
           ],
           tag    => 'create_postgres_target',
-          before => Exec["setup perms on DB files"],
+#          before => Exec["setup perms on DB files"],
           onlyif => "/usr/bin/test ! -f ${recovery_conf}",
         }
         @@file { "${recovery_conf}" :
