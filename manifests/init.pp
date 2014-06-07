@@ -80,7 +80,7 @@ class postgresplus (
   $file_name = 'ppasmeta',
   $version = '9.3.1.3',
   $arch = 'linux-x64',
-  $url_base = 'http://get.enterprisedb/ga',
+  $url_base = 'http://get.enterprisedb.com/ga',
   $superpassword = '',
   $webusername = '',
   $webpassword = '',
