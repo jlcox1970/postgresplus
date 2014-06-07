@@ -1,0 +1,87 @@
+postgresplus
+
+This is the postgresplus module.
+
+With this module you can install any version of PostgrePlus and configure its pg_hba.conf and postgresql.conf files
+
+Install
+-------
+To install the server using Hiera:
+
+        "postgresplus::version" : "9.2.1.3",
+        "postgresplus::superpassword" : "[Database super user password]",
+        "postgresplus::webusername" : "[Email account with access to EnterpriseDB web site]",
+        "postgresplus::webpassword" : "[Password for EnterpriseDB web site]",
+        "postgresplus::key" : "[Product Key]",
+        "postgresplus::url_base" : "[URL base location to use for downloading]",
+        "postgresplus::port" : "[Port number to use Defaults to 5444]",
+        "postgresplus::with_jre" : "[true/false for JRE install]"
+
+Adding rules to pg_hba.conf
+
+  postgresplus::hba_config { 'allow replication access':
+    description => "Open up postgresql for replication",
+    type        => 'host',
+    database    => 'replication',
+    user        => 'replicator',
+    address     => 'all',
+    auth_method => 'trust'
+  }
+
+
+Adding or changing configuration in postgresql.conf
+
+  postgresplus::config_entry { '[configuration option]':
+    value => '[value for setting]',
+  }
+
+Replication
+-----------
+The following is the bare minimum required to setup replication.
+
+*** Master Server ***
+
+  class { 'postgresplus': 
+    replication         => 'true',
+    repl_mode           => 'master',
+    repl_target_address => 'all',
+  }
+  class {'postgresplus::replication' : }
+  postgresplus::config_entry { 'checkpoint_segments':
+   value => '24',
+  }
+  postgresplus::config_entry { 'max_wal_senders' :
+    value => '5',
+  }
+  postgresplus::config_entry { 'hot_standby':
+    value =>  'on' 
+  }
+  postgresplus::config_entry { 'wal_level':
+    value =>  'hot_standby'
+  }
+
+
+*** Slave Server ***
+
+  class { 'postgresplus': 
+    replication => 'true',
+    repl_mode   => 'target',
+    } 
+  class {'postgresplus::replication' :}
+
+
+
+
+
+License
+-------
+
+
+Contact
+-------
+
+
+Support
+-------
+
+Please log tickets and issues at our [Projects site](http://projects.example.com)
