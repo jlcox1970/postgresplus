@@ -4,4 +4,5 @@ class postgresplus::clean {
   exec {'remove installer':
     cwd     => '/tmp',
     command => 'rm /tmp/ppa* -fr',
+  }
 }

@@ -1,14 +1,8 @@
-name    'jason-postgresplus'
-version '0.1.0'
-source 'UNKNOWN'
-author 'jason'
+name 'jlcox-postgresplus'
+version '1.0.0'
+author 'Jason Cox'
 license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
-
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
-dependency 'puppetlabs/concat', '>= 1.0.0 <2.0.0'
-dependancy 'puppetlabs/stdlib'
-
+source 'git@github.com:jlcox1970/postgresplus.git'
+project_page 'https://github.com/jlcox1970/postgresplus'
+summary 'Installation and confgiuration of a Postgres Plus server with replication'
+description 'This module installs Postgres Plus (EnterpiseDB) and allows for streaming replication to be creted'

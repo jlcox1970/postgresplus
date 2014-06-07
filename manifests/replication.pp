@@ -14,7 +14,7 @@ class postgresplus::replication (
 
   $recovery_conf = "${datadir}/recovery.conf"
 
-  if ( $repl_mode != 'false') {
+  if ( $repl_mode != false) {
     if ( $repl_mode == 'master' ) {
       if ( $repl_target_address != undef ) {
         notify { "setting up tags for target" :}

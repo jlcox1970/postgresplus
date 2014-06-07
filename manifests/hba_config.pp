@@ -24,19 +24,6 @@ define postgresplus::hba_config (
   }
   $fragname = "pg_hba_rule_${name}" 
   
-  #concat { $target:
-  # owner  => $hba_user,
-  # group  => $hba_group,
-  # mode   => '0644',
-    #notify => Class['postgresplus'],
-    #  }
-  
-  
-  #exec { "touch $name":
-  #  command => "/bin/touch $target",
-  #  user    => $hba_user,
-  #  group   => $hba_group,
-  #}->
   concat::fragment { $fragname:
     target  => $target,
     content => template('postgresplus/pg_hba_rule.conf'),

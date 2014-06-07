@@ -69,10 +69,6 @@ The following is the bare minimum required to setup replication.
     } 
   class {'postgresplus::replication' :}
 
-
-
-
-
 License
 -------
 
@@ -84,4 +80,4 @@ Contact
 Support
 -------
 
-Please log tickets and issues at our [Projects site](http://projects.example.com)
+Please log tickets and issues at our github site(https://github.com/jlcox1970/postgresplus)

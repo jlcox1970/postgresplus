@@ -46,12 +46,12 @@ class postgresplus (
   $webpassword = '',
   $serverport = '5444',
   $key = '',
-  $with_jre = '',
+  $with_jre = false,
   $java_package = 'java-1.6.0-openjdk',
   $install_path = '/opt/PostgresPlus',
   $user = 'enterprisedb',
   $group = 'enterprisedb',
-  $replication = 'false',
+  $replication = false,
   $repl_mode = 'master',
   $repl_user = 'replicator',
   $repl_pass = 'replicator',
@@ -59,7 +59,7 @@ class postgresplus (
   $auth_method = 'trust'
 ){
  
-    include concat::setup
+  include concat::setup
 
   $v_number         = split ( $version , '[.]' )
   $v_major          = $v_number[0]
@@ -89,31 +89,31 @@ class postgresplus (
     class {postgresplus::clean :}
     fail ("Product Key not set")
   }
-  if $with_jre == "true" {
+  if $with_jre == true {
 
     package { $java_package :
     }->
     exec {'Download PPA':
       cwd     => '/tmp',
-      command => "wget $url_base/$file_name-$version-$arch.tar.gz -O $file_name-$version-$arch.tar.gz",
+      command => "wget ${url_base}/${file_name}-${version}-${arch}.tar.gz -O ${file_name}-${version}-${arch}.tar.gz",
       path    => '/usr/bin',
-      creates => "/tmp/$file_name-$version-$arch.tar.gz",
+      creates => "/tmp/${file_name}-${version}-${arch}.tar.gz",
       require => Package[$java_package],
     }
   }
   else {
     exec {'Download PPA':
       cwd     => '/tmp',
-      command => "wget $url_base/$file_name-$version-$arch.tar.gz -O $file_name-$version-$arch.tar.gz",
+      command => "wget ${url_base}/${file_name}-${version}-${arch}.tar.gz -O ${file_name}-${version}-${arch}.tar.gz",
       path    => '/usr/bin',
-      creates => "/tmp/$file_name-$version-$arch.tar.gz",
+      creates => "/tmp/${file_name}-${version}-${arch}.tar.gz",
     }
   }
 
-  anchor { 'postgresplus::start' : }->
+  anchor { 'postgresplus::start' : } ->
   exec {'Unpack PPA':
     cwd         => '/tmp',
-    command     => "tar zxf $file_name-$version-$arch.tar.gz",
+    command     => "tar zxf ${file_name}-${version}-${arch}.tar.gz",
     path        => '/bin',
     subscribe   => Exec['Download PPA'],
     refreshonly => true,
@@ -125,9 +125,9 @@ class postgresplus (
     refreshonly => true,
   }->
   exec {'Install PPA':
-    cwd       => "/tmp/$file_name-$version-$arch",
-    command   => "$file_name-$version-$arch.run --mode unattended --superpassword \"$superpassword\" --webusername \"$webusername\" --webpassword \"$webpassword\" --serverport $serverport --productkey $key ",
-    path      => "/tmp/$file_name-$version-$arch:/usr/bin:/bin",
+    cwd       => "/tmp/${file_name}-${version}-${arch}",
+    command   => "${file_name}-${version}-${arch}.run --mode unattended --superpassword \"${superpassword}\" --webusername \"${webusername}\" --webpassword \"${webpassword}\" --serverport ${serverport} --productkey ${key} ",
+    path      => "/tmp/${file_name}-${version}-${arch}:/usr/bin:/bin",
     onlyif    => "test ! -d /opt/PostgresPlus/${v_major}.${v_minor}AS",
   }->
   exec {'SeLinux Enforcing':
@@ -142,15 +142,6 @@ class postgresplus (
     mode    => '0600',
     notify => Service["$ppa_service"],
   }->
-  #concat { $pg_hba_conf_path:
-  #  owner  => $user,
-  # group  => $group,
-  # mode   => '0640',
-  # warn   => true,
-  #}->
-  #file {"$pg_conf_path" :
-  # ensure => present,
-  #}->
   service { "$ppa_service" :
     ensure => running,
     enable => true,
