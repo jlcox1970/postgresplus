@@ -112,7 +112,7 @@ class postgresplus (
   $datadir          = "$install_path/${v_major}.${v_minor}AS/data"
   $bindir           = "$install_path/${v_major}.${v_minor}AS/bin"
   $psql_path        = "$bindir/psql"
-
+  $bin_file         = "${file_name}-${version}-${arch}"
   
   unless $superpassword {
     class {postgresplus::clean :}
@@ -130,31 +130,37 @@ class postgresplus (
     class {postgresplus::clean :}
     fail ("Product Key not set")
   }
+  $productkey = "--productkey \"${key}\""
+  $SP         = "--superpassword \"${superpassword}\""
+  $wuser      = "--webusername \"${webusername}\""
+  $wpass      = "--webpassword \"${webpassword}\""
+  $port       = "--serverport \"${serverport}\""
+
   if $with_jre == true {
 
     package { $java_package :
     }->
     exec {'Download PPA':
       cwd     => '/tmp',
-      command => "wget ${url_base}/${file_name}-${version}-${arch}.tar.gz -O ${file_name}-${version}-${arch}.tar.gz",
+      command => "wget ${url_base}/${bin_file}.tar.gz -O ${bin_file}.tar.gz",
       path    => '/usr/bin',
-      creates => "/tmp/${file_name}-${version}-${arch}.tar.gz",
+      creates => "/tmp/${bin_file}.tar.gz",
       require => Package[$java_package],
     }
   }
   else {
     exec {'Download PPA':
       cwd     => '/tmp',
-      command => "wget ${url_base}/${file_name}-${version}-${arch}.tar.gz -O ${file_name}-${version}-${arch}.tar.gz",
+      command => "wget ${url_base}/${bin_file}.tar.gz -O ${bin_file}.tar.gz",
       path    => '/usr/bin',
-      creates => "/tmp/${file_name}-${version}-${arch}.tar.gz",
+      creates => "/tmp/${bin_file}.tar.gz",
     }
   }
 
   anchor { 'postgresplus::start' : } ->
   exec {'Unpack PPA':
     cwd         => '/tmp',
-    command     => "tar zxf ${file_name}-${version}-${arch}.tar.gz",
+    command     => "tar zxf ${bin_file}.tar.gz",
     path        => '/bin',
     subscribe   => Exec['Download PPA'],
     refreshonly => true,
@@ -166,9 +172,9 @@ class postgresplus (
     refreshonly => true,
   }->
   exec {'Install PPA':
-    cwd       => "/tmp/${file_name}-${version}-${arch}",
-    command   => "${file_name}-${version}-${arch}.run --mode unattended --superpassword \"${superpassword}\" --webusername \"${webusername}\" --webpassword \"${webpassword}\" --serverport ${serverport} --productkey ${key} ",
-    path      => "/tmp/${file_name}-${version}-${arch}:/usr/bin:/bin",
+    cwd       => "/tmp/${bin_file}",
+    command   => "${bin_file}.run --mode unattended ${SP} ${wuser} ${wpass} ${port} ${productkey} ",
+    path      => "/tmp/${bin_file}:/usr/bin:/bin",
     onlyif    => "test ! -d /opt/PostgresPlus/${v_major}.${v_minor}AS",
   }->
   exec {'SeLinux Enforcing':
