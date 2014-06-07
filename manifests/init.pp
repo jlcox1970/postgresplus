@@ -1,47 +1,87 @@
 # == Class: postgresplus
 #
-# Full description of class postgresplus here.
+# Install PostgresPlus (EnterpriseDB) server with streaming replication targets.
+# This requires that use are using PuppetDB.
 #
 # === Parameters
+# [file_name]
+#   This the base part of the file name that will be used for the installer
+#     ie ppametta is the base for ppasmeta-9.3.1.3-linux-x64.tar.gz
 #
-# Document parameters here.
+# [version]
+#   The version of the file that is to be used for installing 
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [arch]
+#   Install architecture
 #
-# === Variables
+# [url_base]
+#   URL location for downloading the installer from (less actual file name)
 #
-# Here you should define a list of variables that this module would require.
+# [superpassword]
+#   Database super user password
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [webusername]
+#   User name for accessing the Enterprise DB website.
+#   This is required for installing the appliaction.
 #
-# === Examples
+# [webpassword]
+#   Password for the above account
 #
-#  class { postgresplus:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+# [serverport]
+#   SQL server port. Default 5444
+#
+# [key]
+#   installation key
+#
+# [with_jre]
+#   install JRE to enable JRE DB tools
+#
+# [java_package]
+#   JRE to install
+#
+# [install_path]
+#   Path to install PostgrePlus into
+#
+# [user]
+#   install user and account to run database as
+#
+# [group]
+#   install group and account to run database as
+#
+# [replication]
+#   enable replication. Defaults to false
+#
+# [repl_mode]
+#   mode for the replication on this server. Defaults to master
+#
+# [repl_user]
+#   User to be setup in the master for the replication
+#
+# [repl_pass]
+#   Password for the above user
+#
+# [repl_target_address]
+#   ACL address for the replication link
+#
+# [auth_method]
+#   ACL auth method
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Jason Cox <j_cox@bigpond.com>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 Jason Cox, unless otherwise noted.
 #
+# http://get.enterprisedb.com/ga/ppasmeta-9.3.1.3-linux-x64.tar.gz
+
 class postgresplus (
   $file_name = 'ppasmeta',
   $version = '9.3.1.3',
   $arch = 'linux-x64',
-  $inst_mode = 'unattened',
-  $url_base = 'https://www.dropbox.com/s/2br2697q7f8pf01',
-  $superpassword = 'casper1',
+  $url_base = 'http://get.enterprisedb/ga',
+  $superpassword = '',
   $webusername = '',
   $webpassword = '',
   $serverport = '5444',
@@ -60,7 +100,8 @@ class postgresplus (
 ){
  
   include concat::setup
-
+  
+  $inst_mode = 'unattened'
   $v_number         = split ( $version , '[.]' )
   $v_major          = $v_number[0]
   $v_minor          = $v_number [1]
