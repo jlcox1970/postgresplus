@@ -137,12 +137,7 @@ class postgresplus (
   $port       = "--serverport \"${serverport}\""
 
   if ( $repl_mode == 'master' ){
-    @service { "$ppa_service" :
-      ensure  => running,
-      enable  => true,
-      require => Exec['Install PPA'],
-      tag     => 'ppa_service'
-    }
+    @class { postgresplus::service :}
   }
 
   if $with_jre == true {
