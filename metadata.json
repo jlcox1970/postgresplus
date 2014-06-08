@@ -15,7 +15,7 @@
     "templates/pg_hba_rule.conf": "0b65f2d1668d04f0350957fe07685e30",
     "manifests/init.pp": "b19e89d70a1c752701c87235918825dc",
     "manifests/role.pp": "a6dbe085ad7c2acb54a0f0749d2c192d",
-    "manifests/replication.pp": "000f18c96d3d478940ca06e6f1157d43",
+    "manifests/replication.pp": "6c79214b163ca42ee6996624ac5115fa",
     "manifests/clean.pp": "8fe09e87c4bd51bef40629006908c7b6"
   },
   "dependencies": [],

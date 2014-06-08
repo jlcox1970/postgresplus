@@ -75,7 +75,7 @@ class postgresplus::replication (
           command => "/bin/chown -R ${postgresplus::user}:${postgresplus::group} ${datadir}",
         } ->
         service { $ppa_service :
-          ensure => runnning,
+          ensure => running,
           enable => tue
         }
       }
