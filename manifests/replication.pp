@@ -10,6 +10,7 @@ class postgresplus::replication (
   $serverport        = $postgresplus::serverport,
   $repl_target_address = pick($postgresplus::repl_target_address, 'all'),
   $repl_auth_method    = pick($postgresplus::repl_auth_method , 'trust'),
+  $ppa_service         = $postgresplus::ppa_service,
 ) {
 
   $recovery_conf = "${datadir}/recovery.conf"
@@ -72,6 +73,10 @@ class postgresplus::replication (
         File <<| tag == "recovery_conf" |>> ->
         exec {'setup perms on DB files' :
           command => "/bin/chown -R ${postgresplus::user}:${postgresplus::group} ${datadir}",
+        } ->
+        service { $ppa_service :
+          ensure => runnning,
+          enable => tue
         }
       }
     }
