@@ -6,7 +6,9 @@ define postgresplus::database(
   $template   = 'template1',
   $encoding   = $postgresplus::encoding,
   $locale     = $postgresplus::locale,
-  $istemplate = false
+  $istemplate = false,
+  $db               = pick($postgresplus::db, 'postgres'),
+  
 ) {
   $createdb_path = $postgresplus::createdb_path
   $user          = $postgresplus::user
