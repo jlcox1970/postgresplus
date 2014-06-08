@@ -50,9 +50,6 @@ class postgresplus::replication (
          auth_method  => 'trust',
          description  => "Open up postgresql for local trust access",
         }->
-        exec {'replication restart':
-          command => "/sbin/service ${postgresplus::ppa_service} restart",
-        }->
         postgresplus::role { "${repl_user}":
           replication   => true,
           password_hash => postgresql_password ( "${repl_user}", "mypassword" ),
@@ -63,11 +60,11 @@ class postgresplus::replication (
         exec {'stop replication target server' :
           command  => "/sbin/service ${postgresplus::ppa_service} stop ; /bin/true",
           onlyif   => "/usr/bin/test ! -f ${recovery_conf}",
-        }->
+        } ->
         exec {'remove non replicated database' :
           command => "/bin/rm -fr ${datadir}/* ",
           onlyif   => "/usr/bin/test ! -f ${recovery_conf}",
-        }->
+        } ->
         notify { "applying tags to target" :} ->
         Exec <<| tag == 'create_postgres_target' |>> ->
         File <<| tag == "recovery_conf" |>> ->
