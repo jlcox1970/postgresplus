@@ -63,7 +63,7 @@ define postgresplus::database(
   # This will prevent users from connecting to the database unless they've been
   #  granted privileges.
   postgresql_psql {"REVOKE ${public_revoke_privilege} ON DATABASE \"${dbname}\" FROM public":
-    db          => $user,
+    #db          => $user,
     refreshonly => true,
   }
 
