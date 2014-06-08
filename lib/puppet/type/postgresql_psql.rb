@@ -85,5 +85,10 @@ Puppet::Type.newtype(:postgresql_psql) do
     # we just need to sync it to accomplish a 'refresh'.
     self.property(:command).sync(true)
   end
+  
+  newparam(:database) do
+  	desc database to connect to 
+  	defaultto("template1")
+  end
 
 end
