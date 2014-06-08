@@ -1,5 +1,5 @@
 class postgresplus::service (
-  $pg_service = $postgresplus::pg_service
+  $pg_service = $postgresplus::ppa_service
   ){
   service { $pg_service :
     ensure  => running,
