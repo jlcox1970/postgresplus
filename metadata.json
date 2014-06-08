@@ -2,7 +2,7 @@
   "author": "Jason Cox",
   "checksums": {
     "manifests/config_entry.pp": "b6c4339fb6ad44ae65016f271a2f6475",
-    "lib/puppet/type/postgresql_psql.rb": "2c1270cfed4ffb2971059846a57cf983",
+    "lib/puppet/type/postgresql_psql.rb": "07a44030dc400b56e5173518f262b5e8",
     "lib/puppet/provider/postgresql_conf/parsed.rb": "9c198422c0558faab1bedc00b68cfe45",
     "lib/puppet/type/postgresql_conf.rb": "4f333138a3689f9768e7fe4bc3cde9fd",
     "manifests/service.pp": "d5e94d79b035789157cef96b3315d391",
