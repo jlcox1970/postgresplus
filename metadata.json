@@ -5,6 +5,7 @@
     "lib/puppet/type/postgresql_psql.rb": "2c1270cfed4ffb2971059846a57cf983",
     "lib/puppet/provider/postgresql_conf/parsed.rb": "9c198422c0558faab1bedc00b68cfe45",
     "lib/puppet/type/postgresql_conf.rb": "4f333138a3689f9768e7fe4bc3cde9fd",
+    "manifests/service.pp": "3406d975d16dd9debf92dbefba617276",
     "lib/puppet/provider/postgresql_psql/ruby.rb": "8b651764452d8f410f72bd4bbc37d27d",
     "README": "12ba08fcc8cf14cac70e7704d065c280",
     "Modulefile": "d69d8d8d5838d35170b2755f34ac1153",
@@ -15,7 +16,7 @@
     "manifests/hba_config.pp": "cce1e8e32031bcd8d19e12a07a0bf3a0",
     "templates/pg_hba_rule.conf": "0b65f2d1668d04f0350957fe07685e30",
     "manifests/database.pp": "20a512e6c5f15a3d8bd5d70ef6157a2e",
-    "manifests/init.pp": "b19e89d70a1c752701c87235918825dc",
+    "manifests/init.pp": "6c078597f95bc0773b69cac0fffcc838",
     "manifests/role.pp": "a6dbe085ad7c2acb54a0f0749d2c192d",
     "manifests/replication.pp": "b998239d676ee87beb18b921c0ff0606",
     "manifests/clean.pp": "8fe09e87c4bd51bef40629006908c7b6"

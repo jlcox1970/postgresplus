@@ -191,7 +191,7 @@ class postgresplus (
     owner   => $user,
     group   => $group,
     mode    => '0600',
-    notify => Service["$ppa_service"],
+    notify  => Class [ postgresplus::service ]
   }->
   Service <| tag == 'ppa_service' |> ->
   anchor { 'postgresplus::end' : }
