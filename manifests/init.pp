@@ -137,8 +137,7 @@ class postgresplus (
   $port       = "--serverport \"${serverport}\""
 
   if ( $repl_mode == 'master' ){
-    @class { postgresplus::service :
-      tag => 'ppa_service'
+    class { postgresplus::service :
     }
   }
 

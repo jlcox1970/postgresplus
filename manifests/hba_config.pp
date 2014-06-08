@@ -28,6 +28,6 @@ define postgresplus::hba_config (
     target  => $target,
     content => template('postgresplus/pg_hba_rule.conf'),
     order   => $order,
-    notify  => Service["$postgresplus::ppa_service"],
+    notify  => Service["$postgresplus::service::service"],
   }
 }
