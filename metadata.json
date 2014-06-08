@@ -6,7 +6,7 @@
     "lib/puppet/provider/postgresql_conf/parsed.rb": "9c198422c0558faab1bedc00b68cfe45",
     "lib/puppet/type/postgresql_conf.rb": "4f333138a3689f9768e7fe4bc3cde9fd",
     "manifests/service.pp": "d5e94d79b035789157cef96b3315d391",
-    "lib/puppet/provider/postgresql_psql/ruby.rb": "8179bb7eaa2205a866873090b7978c05",
+    "lib/puppet/provider/postgresql_psql/ruby.rb": "2c4f5f9f759f6cdde94fcafd90d74794",
     "README": "12ba08fcc8cf14cac70e7704d065c280",
     "Modulefile": "d69d8d8d5838d35170b2755f34ac1153",
     "manifests/tablespace.pp": "e54724886849f51d9006c7d93be33434",
