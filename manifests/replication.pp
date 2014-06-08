@@ -23,7 +23,7 @@ class postgresplus::replication (
           cwd     => '/tmp',
           command => "${bindir}/pg_basebackup -h ${ipaddress} -U ${repl_user} -D ${datadir} -c fast -Xs ",
           notify  => [
-            Service["${postgresplus::ppa_service}"],
+            Service[ $ppa_service ],
           ],
           tag    => 'create_postgres_target',
 #          before => Exec["setup perms on DB files"],

@@ -100,6 +100,7 @@ class postgresplus (
 ){
  
   include concat::setup
+  include postgresplus::service
   
   $inst_mode = 'unattened'
   $v_number         = split ( $version , '[.]' )
