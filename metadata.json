@@ -15,7 +15,7 @@
     "templates/recovery.conf.erb": "711e01c60398ffc880488f9fa54b73cc",
     "manifests/hba_config.pp": "77627c8ca3737e8f95114b6e7a43f79a",
     "templates/pg_hba_rule.conf": "0b65f2d1668d04f0350957fe07685e30",
-    "manifests/database.pp": "33e41439239897b21fb3a471b6b07f4a",
+    "manifests/database.pp": "54cef806e29c09f5bff53206bea62a1a",
     "manifests/init.pp": "8384718b7169e0fce4f6ae636972c2de",
     "manifests/role.pp": "a6dbe085ad7c2acb54a0f0749d2c192d",
     "manifests/replication.pp": "5ff57cc238dad2dc68d45f576fc608fd",

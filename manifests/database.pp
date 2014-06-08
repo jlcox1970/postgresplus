@@ -3,7 +3,7 @@ define postgresplus::database(
   $dbname     = $title,
   $owner      = $postgresplus::user,
   $tablespace = undef,
-  $template   = 'template0',
+  $template   = 'template1',
   $encoding   = $postgresplus::encoding,
   $locale     = $postgresplus::locale,
   $istemplate = false
