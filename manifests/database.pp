@@ -18,6 +18,7 @@ define postgresplus::database(
 
   # Set the defaults for the postgresql_psql resource
   Postgresql_psql {
+    db         => $db,
     psql_user  => $user,
     psql_group => $group,
     psql_path  => $psql_path,

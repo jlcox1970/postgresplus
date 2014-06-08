@@ -3,7 +3,7 @@ define postgresplus::role(
   $password_hash    = false,
   $createdb         = false,
   $createrole       = false,
-  $db               = pick($postgresplus::db, 'postgres'),
+  $db               = 'postgres',
   $login            = true,
   $superuser        = false,
   $replication      = false,
