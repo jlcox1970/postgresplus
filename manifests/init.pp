@@ -190,9 +190,10 @@ class postgresplus (
     notify => Service["$ppa_service"],
   }->
   anchor { 'postgresplus::end' : }
+  
   service { "$ppa_service" :
     ensure => running,
     enable => true,
     require => Exec['Install PPA']
-  }->
+  }
 }
