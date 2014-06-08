@@ -100,8 +100,7 @@ class postgresplus (
 ){
  
   include concat::setup
-  include postgresplus::service
-  
+
   $inst_mode = 'unattened'
   $v_number         = split ( $version , '[.]' )
   $v_major          = $v_number[0]
@@ -138,7 +137,9 @@ class postgresplus (
   $port       = "--serverport \"${serverport}\""
 
   if ( $repl_mode == 'master' ){
-    @class { postgresplus::service :}
+    @class { postgresplus::service :
+      tag => 'ppa_service'
+    }
   }
 
   if $with_jre == true {
@@ -193,6 +194,6 @@ class postgresplus (
     group   => $group,
     mode    => '0600',
   }->
-  Service <| tag == 'ppa_service' |> ->
+  Class <| tag == 'ppa_service' |> ->
   anchor { 'postgresplus::end' : }
 }
