@@ -1,4 +1,24 @@
 {
+  "requirements": [
+    { "name": "pe", "version_requirement": "3.2.x" },
+    { "name": "puppet", "version_requirement": "3.x" }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+        "operatingsystemrelease": [
+          "5",
+          "6"
+        ]
+    }
+  ],
   "author": "Jason Cox",
   "checksums": {
     "manifests/config_entry.pp": "b6c4339fb6ad44ae65016f271a2f6475",
