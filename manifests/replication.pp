@@ -76,7 +76,7 @@ class postgresplus::replication (
         } ->
         service { $ppa_service :
           ensure => running,
-          enable => tue
+          enable => true
         }
       }
     }
