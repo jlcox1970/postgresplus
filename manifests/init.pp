@@ -113,6 +113,7 @@ class postgresplus (
   $bindir           = "$install_path/${v_major}.${v_minor}AS/bin"
   $psql_path        = "$bindir/psql"
   $bin_file         = "${file_name}-${version}-${arch}"
+  $createdb_path    = "${bindir}/createdb"
   
   unless $superpassword {
     class {postgresplus::clean :}
