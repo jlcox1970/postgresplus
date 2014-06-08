@@ -136,6 +136,15 @@ class postgresplus (
   $wpass      = "--webpassword \"${webpassword}\""
   $port       = "--serverport \"${serverport}\""
 
+  if ( $repl_mode == 'master'){
+    @service { "$ppa_service" :
+      ensure  => running,
+      enable  => true,
+      require => Exec['Install PPA'],
+      tag     => 'ppa_service'
+    }
+  }
+
   if $with_jre == true {
 
     package { $java_package :
@@ -191,9 +200,6 @@ class postgresplus (
   }->
   anchor { 'postgresplus::end' : }
   
-  service { "$ppa_service" :
-    ensure => running,
-    enable => true,
-    require => Exec['Install PPA']
-  }
+  Service <| tag == "ppa_service" |>
+  
 }
