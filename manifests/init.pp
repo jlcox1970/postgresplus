@@ -193,6 +193,6 @@ class postgresplus (
     group   => $group,
     mode    => '0600',
   }->
-  Class <| tag == 'ppa_service' |> ->
+  Service <| tag == 'ppa_service' |> ->
   anchor { 'postgresplus::end' : }
 }
