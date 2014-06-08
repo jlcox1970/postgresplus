@@ -62,9 +62,10 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
     end
 
     command = [resource[:psql_path]]
+    command.push("-U", resource[:psql_user])
     command.push("-d", resource[:db]) if resource[:db]
-    command.push("-U", resource[:psql_user], "-t", "-c", sql)
-
+    command.push( "-t", "-c", sql)
+    
     if resource[:cwd]
       Dir.chdir resource[:cwd] do
         run_command(command, resource[:psql_user], resource[:psql_group])
@@ -79,8 +80,8 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
       Puppet::Util::SUIDManager.run_and_capture(command, user, group)
     else
       output = Puppet::Util::Execution.execute(command, {
-        :uid                => psql_user,
-        :gid                => psql_group,
+        :uid                => user,
+        :gid                => group,
         :failonfail         => false,
         :combine            => true,
         :override_locale    => true,
