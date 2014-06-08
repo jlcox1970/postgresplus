@@ -79,8 +79,8 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
       Puppet::Util::SUIDManager.run_and_capture(command, user, group)
     else
       output = Puppet::Util::Execution.execute(command, {
-        :uid                => user,
-        :gid                => group,
+        :uid                => psql_user,
+        :gid                => psql_group,
         :failonfail         => false,
         :combine            => true,
         :override_locale    => true,
