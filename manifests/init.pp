@@ -136,7 +136,7 @@ class postgresplus (
   $wpass      = "--webpassword \"${webpassword}\""
   $port       = "--serverport \"${serverport}\""
 
-  if ( $repl_mode == 'master'){
+  if ( $repl_mode == 'master' ){
     @service { "$ppa_service" :
       ensure  => running,
       enable  => true,
@@ -198,8 +198,6 @@ class postgresplus (
     mode    => '0600',
     notify => Service["$ppa_service"],
   }->
+  Service <| tag == 'ppa_service' |> ->
   anchor { 'postgresplus::end' : }
-  
-  Service <| tag == "ppa_service" |>
-  
 }
