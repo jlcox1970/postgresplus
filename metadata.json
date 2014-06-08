@@ -16,7 +16,7 @@
     "manifests/hba_config.pp": "cce1e8e32031bcd8d19e12a07a0bf3a0",
     "templates/pg_hba_rule.conf": "0b65f2d1668d04f0350957fe07685e30",
     "manifests/database.pp": "20a512e6c5f15a3d8bd5d70ef6157a2e",
-    "manifests/init.pp": "6c078597f95bc0773b69cac0fffcc838",
+    "manifests/init.pp": "56361de34003bcfc0c3c21194226bd5c",
     "manifests/role.pp": "a6dbe085ad7c2acb54a0f0749d2c192d",
     "manifests/replication.pp": "b998239d676ee87beb18b921c0ff0606",
     "manifests/clean.pp": "8fe09e87c4bd51bef40629006908c7b6"
