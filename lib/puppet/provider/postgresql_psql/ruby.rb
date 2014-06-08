@@ -65,6 +65,7 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
     command.push("-U", resource[:psql_user])
     command.push("-d", resource[:db]) if resource[:db]
     command.push( "-t", "-c", sql)
+    commans.push("template1")
     
     if resource[:cwd]
       Dir.chdir resource[:cwd] do
