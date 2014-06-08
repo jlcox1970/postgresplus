@@ -54,6 +54,7 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
     # for the 'unless' queries, we wrap the user's query in a 'SELECT COUNT',
     # which makes it easier to parse and process the output.
     run_sql_command('SELECT COUNT(*) FROM (' <<  sql << ') count')
+    database = ("template1")
   end
 
   def run_sql_command(sql)
@@ -64,7 +65,7 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
     command = [resource[:psql_path]]
     command.push("-U", resource[:psql_user])
     command.push("-d", resource[:db]) if resource[:db]
-    command.push( "-t", "-c", sql)
+    command.push( "-t", "-c", sql, database)
     
     if resource[:cwd]
       Dir.chdir resource[:cwd] do
