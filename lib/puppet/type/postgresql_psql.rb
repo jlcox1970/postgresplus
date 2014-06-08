@@ -87,7 +87,7 @@ Puppet::Type.newtype(:postgresql_psql) do
   end
   
   newparam(:database) do
-  	desc database to connect to 
+  	desc "database to connect to" 
   	defaultto("template1")
   end
 
