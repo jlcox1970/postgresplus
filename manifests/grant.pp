@@ -4,7 +4,7 @@ define postgresplus::grant (
   $db,
   $privilege   = undef,
   $object_type = 'database',
-  $object_name = $db,
+  $object_name = $postgresplus::database,
   $psql_db     = $postgresplus::user,
   $psql_user   = $postgresplus::user
 ) {

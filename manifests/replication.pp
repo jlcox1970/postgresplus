@@ -2,14 +2,13 @@ class postgresplus::replication (
   $user           = $postgresplus::user,
   $repl_mode      = $postgresplus::repl_mode,
   $replication    = $postgresplus::replication,
-  $repl_mode      = $postgresplus::repl_mode,
   $repl_user      = $postgresplus::repl_user,
   $repl_pass      = $postgresplus::repl_pass,
   $datadir        = $postgresplus::datadir,
   $bindir         = $postgresplus::bindir,
   $serverport        = $postgresplus::serverport,
-  $repl_target_address = pick($postgresplus::repl_target_address, 'all'),
-  $repl_auth_method    = pick($postgresplus::repl_auth_method , 'trust'),
+  $repl_target_address = $postgresplus::repl_target_address,
+  $repl_auth_method    = $postgresplus::repl_auth_method ,
   $ppa_service         = $postgresplus::ppa_service,
 ) {
 

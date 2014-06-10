@@ -7,7 +7,7 @@ define postgresplus::database(
   $encoding   = $postgresplus::encoding,
   $locale     = $postgresplus::locale,
   $istemplate = false,
-  $db               = pick($postgresplus::db, 'postgres'),
+  $db         =  'postgres',
   
 ) {
   $createdb_path = $postgresplus::createdb_path

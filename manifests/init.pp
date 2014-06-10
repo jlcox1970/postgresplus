@@ -96,7 +96,11 @@ class postgresplus (
   $repl_user = 'replicator',
   $repl_pass = 'replicator',
   $repl_target_address = 'all',
-  $auth_method = 'trust'
+  $repl_auth_method = 'trust',
+  $auth_method = 'trust',
+  $encoding = undef,
+  $locale = undef,
+  $database = ''
 ){
  
   include concat::setup
