@@ -1,5 +1,5 @@
 name 'jlcox-postgresplus'
-version '1.0.0'
+version '1.0.1'
 author 'Jason Cox'
 license 'Apache License, Version 2.0'
 source 'git@github.com:jlcox1970/postgresplus.git'
