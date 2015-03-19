@@ -17,56 +17,56 @@ class postgresplus::replication (
   if ( $repl_mode != false) {
     if ( $repl_mode == 'master' ) {
       if ( $repl_target_address != undef ) {
-        notify { "setting up tags for target" :}
+        notify { 'setting up tags for target' :}
         @@exec { 'create_postgres_target':
           cwd     => '/tmp',
-          command => "${bindir}/pg_basebackup -h ${ipaddress} -U ${repl_user} -D ${datadir} -c fast -Xs ",
+          command => "${bindir}/pg_basebackup -h ${::ipaddress} -U ${repl_user} -D ${datadir} -c fast -Xs ",
           notify  => [
             Service[ $ppa_service ],
           ],
-          tag    => 'create_postgres_target',
+          tag     => 'create_postgres_target',
 #          before => Exec["setup perms on DB files"],
-          onlyif => "/usr/bin/test ! -f ${recovery_conf}",
+          onlyif  => "/usr/bin/test ! -f ${recovery_conf}",
         }
-        @@file { "${recovery_conf}" :
+        @@file { $recovery_conf :
           ensure  => file,
           content => template('postgresplus/recovery.conf.erb'),
-          tag     => "recovery_conf",
-          before  => Exec["setup perms on DB files"],
+          tag     => 'recovery_conf',
+          before  => Exec['setup perms on DB files'],
         }
         postgresplus::hba_config { 'allow replication access':
-          description => "Open up postgresql for replication PPAS",
+          description => 'Open up postgresql for replication PPAS',
           type        => 'host',
           database    => 'replication',
-          user        => "${repl_user}",
-          address     => "${repl_target_address}",
-          auth_method => "${repl_auth_method}",
+          user        => $repl_user,
+          address     => $repl_target_address,
+          auth_method => $repl_auth_method,
         }->
         postgresplus::hba_config { 'allow local trust access':
-         type         => 'local',
-         database     => 'all',
-         user         => 'all',
-         auth_method  => 'trust',
-         description  => "Open up postgresql for local trust access",
+          type        => 'local',
+          database    => 'all',
+          user        => 'all',
+          auth_method => 'trust',
+          description => 'Open up postgresql for local trust access',
         }->
-        postgresplus::role { "${repl_user}":
+        postgresplus::role { $repl_user :
           replication   => true,
-          password_hash => postgresql_password ( "${repl_user}", "mypassword" ),
+          password_hash => postgresql_password ( $repl_user, $repl_pass ),
         }
       }
     } else {
       if ( $repl_mode == 'target' ) {
         exec {'stop replication target server' :
-          command  => "/sbin/service ${postgresplus::ppa_service} stop ; /bin/true",
-          onlyif   => "/usr/bin/test ! -f ${recovery_conf}",
+          command => "/sbin/service ${postgresplus::ppa_service} stop ; /bin/true",
+          onlyif  => "/usr/bin/test ! -f ${recovery_conf}",
         } ->
         exec {'remove non replicated database' :
           command => "/bin/rm -fr ${datadir}/* ",
-          onlyif   => "/usr/bin/test ! -f ${recovery_conf}",
+          onlyif  => "/usr/bin/test ! -f ${recovery_conf}",
         } ->
-        notify { "applying tags to target" :} ->
+        notify { 'applying tags to target' :} ->
         Exec <<| tag == 'create_postgres_target' |>> ->
-        File <<| tag == "recovery_conf" |>> ->
+        File <<| tag == 'recovery_conf' |>> ->
         exec {'setup perms on DB files' :
           command => "/bin/chown -R ${postgresplus::user}:${postgresplus::group} ${datadir}",
         } ->

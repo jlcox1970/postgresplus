@@ -22,7 +22,7 @@ define postgresplus::hba_config (
   if($type =~ /^host/ and $address == undef) {
     fail('You must specify an address property when type is host based')
   }
-  $fragname = "pg_hba_rule_${name}" 
+  $fragname = "pg_hba_rule_${name}"
   
   concat::fragment { $fragname:
     target  => $target,
